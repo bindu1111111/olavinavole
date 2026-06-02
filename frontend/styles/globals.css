@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  @apply box-border;
+}
+
+body {
+  @apply bg-gray-50;
+}
+
+.container {
+  @apply max-w-7xl mx-auto px-4;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  @apply animate-[fadeIn_0.3s_ease-in];
+}
+
+.animate-slideUp {
+  @apply animate-[slideUp_0.3s_ease-in];
+}
+
+/* Product card hover effect */
+.product-card {
+  @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-2;
+}
+
+/* Button styles */
+.btn-primary {
+  @apply bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 rounded-lg font-medium hover:from-purple-700 hover:to-pink-700 transition-all;
+}
+
+.btn-secondary {
+  @apply bg-gray-200 text-gray-800 px-6 py-2 rounded-lg font-medium hover:bg-gray-300 transition-all;
+}
+
+.btn-sm {
+  @apply px-3 py-1 text-sm;
+}

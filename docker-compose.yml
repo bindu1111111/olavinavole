@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: earring_store_db
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: earring-store
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - earring_network
+
+  backend:
+    build: ./backend
+    container_name: earring_store_api
+    ports:
+      - "5000:5000"
+    environment:
+      MONGODB_URI: mongodb://mongodb:27017/earring-store
+      JWT_SECRET: your-super-secret-key
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY}
+      NODE_ENV: production
+    depends_on:
+      - mongodb
+    networks:
+      - earring_network
+
+  frontend:
+    build: ./frontend
+    container_name: earring_store_web
+    ports:
+      - "3000:3000"
+    environment:
+      NEXT_PUBLIC_API_BASE_URL: http://backend:5000/api
+    depends_on:
+      - backend
+    networks:
+      - earring_network
+
+volumes:
+  mongodb_data:
+
+networks:
+  earring_network:
+    driver: bridge
